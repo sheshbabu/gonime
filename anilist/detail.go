@@ -3,6 +3,7 @@ package anilist
 import (
 	"encoding/json"
 	"html/template"
+	"strings"
 )
 
 var getAnimeDetailQuery = `
@@ -48,6 +49,8 @@ func GetAnimeDetail(id int) AnimeDetail {
 
 	description := template.HTML(rawDetail.Data.Media.Description)
 
+	genres := strings.Join(rawDetail.Data.Media.Genres, ", ")
+
 	detail = AnimeDetail{
 		ID:                    rawDetail.Data.Media.ID,
 		Cover:                 rawDetail.Data.Media.CoverImage.Large,
@@ -57,7 +60,7 @@ func GetAnimeDetail(id int) AnimeDetail {
 		TotalEpisodeCount:     rawDetail.Data.Media.Episodes,
 		NextEpisodeNumber:     rawDetail.Data.Media.NextAiringEpisode.Episode,
 		NextEpisodeAiringDate: rawDetail.Data.Media.NextAiringEpisode.AiringAt,
-		Genres:                rawDetail.Data.Media.Genres,
+		Genres:                genres,
 	}
 
 	return detail

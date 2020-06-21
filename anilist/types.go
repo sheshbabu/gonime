@@ -18,7 +18,7 @@ type AnimeDetail struct {
 	TotalEpisodeCount     int
 	NextEpisodeNumber     int
 	NextEpisodeAiringDate int
-	Genres                []string
+	Genres                string
 }
 
 type AnimeListRaw struct {
