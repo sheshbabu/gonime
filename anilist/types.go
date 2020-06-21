@@ -1,5 +1,7 @@
 package anilist
 
+import "html/template"
+
 type AnimeList = []AnimeListItem
 
 type AnimeListItem struct {
@@ -10,12 +12,12 @@ type AnimeListItem struct {
 type AnimeDetail struct {
 	ID                    int
 	Title                 string
-	Description           string
+	Description           template.HTML
 	Cover                 string
 	AverageScore          int
 	TotalEpisodeCount     int
 	NextEpisodeNumber     int
-	NextEpisodeAiringDate string
+	NextEpisodeAiringDate int
 	Genres                []string
 }
 
@@ -27,6 +29,12 @@ type AnimeListRaw struct {
 	}
 }
 
+type AnimeDetailRaw struct {
+	Data struct {
+		Media AnimeListItemRaw
+	}
+}
+
 type AnimeListItemRaw struct {
 	ID    int
 	Title struct {
@@ -35,5 +43,13 @@ type AnimeListItemRaw struct {
 	}
 	CoverImage struct {
 		Large string
+	}
+	Description       string
+	Genres            []string
+	AverageScore      int
+	Episodes          int
+	NextAiringEpisode struct {
+		Episode  int
+		AiringAt int
 	}
 }

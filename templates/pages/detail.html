@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  {{ template "header.html" }}
+  <body>
+    <h1>{{ .Title}}</h1>
+    <div id="content">
+      {{ template "item.html" . }}
+    </div>
+    <div>{{ .Description}}</div>
+    <div>Genres: {{ .Genres}}</div>
+  </body>
+</html>
