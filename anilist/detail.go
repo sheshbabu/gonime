@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"html/template"
 	"strings"
+	"time"
 )
 
 var getAnimeDetailQuery = `
@@ -17,6 +18,7 @@ var getAnimeDetailQuery = `
 			coverImage {
 				large
 			}
+			bannerImage
 			description
 			genres
 			averageScore
@@ -30,10 +32,10 @@ var getAnimeDetailQuery = `
 `
 
 type getAnimeDetailQueryVariables struct {
-	ID int
+	ID string
 }
 
-func GetAnimeDetail(id int) AnimeDetail {
+func GetAnimeDetail(id string) AnimeDetail {
 	var rawDetail AnimeDetailRaw
 	var detail AnimeDetail
 
@@ -47,20 +49,30 @@ func GetAnimeDetail(id int) AnimeDetail {
 		title = rawDetail.Data.Media.Title.UserPreferred
 	}
 
-	description := template.HTML(rawDetail.Data.Media.Description)
+	description := template.HTML(strings.ReplaceAll(rawDetail.Data.Media.Description, "’", "'"))
 
 	genres := strings.Join(rawDetail.Data.Media.Genres, ", ")
 
+	shouldDisplayNextEpisode := true
+
+	if rawDetail.Data.Media.NextAiringEpisode.AiringAt == 0 || rawDetail.Data.Media.NextAiringEpisode.AiringAt == 0 {
+		shouldDisplayNextEpisode = false
+	}
+
+	nextEpisodeAiringDate := time.Unix(rawDetail.Data.Media.NextAiringEpisode.AiringAt, 0).Format("02 Jan 2006 3:04PM MST")
+
 	detail = AnimeDetail{
-		ID:                    rawDetail.Data.Media.ID,
-		Cover:                 rawDetail.Data.Media.CoverImage.Large,
-		Title:                 title,
-		Description:           description,
-		AverageScore:          rawDetail.Data.Media.AverageScore,
-		TotalEpisodeCount:     rawDetail.Data.Media.Episodes,
-		NextEpisodeNumber:     rawDetail.Data.Media.NextAiringEpisode.Episode,
-		NextEpisodeAiringDate: rawDetail.Data.Media.NextAiringEpisode.AiringAt,
-		Genres:                genres,
+		ID:                       rawDetail.Data.Media.ID,
+		Cover:                    rawDetail.Data.Media.CoverImage.Large,
+		Banner:                   rawDetail.Data.Media.BannerImage,
+		Title:                    title,
+		Description:              description,
+		AverageScore:             rawDetail.Data.Media.AverageScore,
+		TotalEpisodeCount:        rawDetail.Data.Media.Episodes,
+		ShouldDisplayNextEpisode: shouldDisplayNextEpisode,
+		NextEpisodeNumber:        rawDetail.Data.Media.NextAiringEpisode.Episode,
+		NextEpisodeAiringDate:    nextEpisodeAiringDate,
+		Genres:                   genres,
 	}
 
 	return detail

@@ -10,15 +10,17 @@ type AnimeListItem struct {
 }
 
 type AnimeDetail struct {
-	ID                    int
-	Title                 string
-	Description           template.HTML
-	Cover                 string
-	AverageScore          int
-	TotalEpisodeCount     int
-	NextEpisodeNumber     int
-	NextEpisodeAiringDate int
-	Genres                string
+	ID                       int
+	Title                    string
+	Description              template.HTML
+	Cover                    string
+	Banner                   string
+	AverageScore             int
+	TotalEpisodeCount        int
+	ShouldDisplayNextEpisode bool
+	NextEpisodeNumber        int
+	NextEpisodeAiringDate    string
+	Genres                   string
 }
 
 type AnimeListRaw struct {
@@ -44,12 +46,13 @@ type AnimeListItemRaw struct {
 	CoverImage struct {
 		Large string
 	}
+	BannerImage       string
 	Description       string
 	Genres            []string
 	AverageScore      int
 	Episodes          int
 	NextAiringEpisode struct {
 		Episode  int
-		AiringAt int
+		AiringAt int64
 	}
 }

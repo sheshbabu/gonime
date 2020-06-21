@@ -4,9 +4,31 @@
   <body>
     <h1>{{ .Title}}</h1>
     <div id="content">
-      {{ template "item.html" . }}
+      {{ template "cover.html" . }}
     </div>
-    <div id="description">{{ .Description}}</div>
-    <div id="genres">Genres: {{ .Genres}}</div>
+    <div id="well">
+      <p>Description</p>
+      {{ .Description}}
+    </div>
+    <div id="well">
+      <p>Genres</p>
+      {{ .Genres}}
+    </div>
+    <div id="well">
+      <p>Average Score</p>
+      {{ .AverageScore}}%
+    </div>
+    {{if .ShouldDisplayNextEpisode}}
+    <div id="well">
+      <p>Next Episode</p>
+      Episode {{ .NextEpisodeNumber}}
+      <br />
+      {{ .NextEpisodeAiringDate}}
+    </div>
+    {{end}}
+    <div id="well">
+      <p>Number Of Episodes</p>
+      {{ .TotalEpisodeCount}}
+    </div>
   </body>
 </html>

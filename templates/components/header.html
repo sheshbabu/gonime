@@ -9,14 +9,15 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: #334;
+      -webkit-font-smoothing: subpixel-antialiased;
+      color: #333;
       background: #f6f6f6;
       padding-bottom: calc(24px + env(safe-area-inset-bottom));
     }
 
     h1 {
       text-align: center;
-      height: 40px;
+      min-height: 40px;
       padding-top: 16px;
     }
 
@@ -29,28 +30,51 @@
     #content .item {
       height: 274px;
       width: 180px;
-      margin: 16px;
       background: white;
       border-radius: 8px;
       overflow: hidden;
+    }
+
+    #content a {
       margin-bottom: 16px;
       box-shadow: 0px 22px 24px 0px rgba(46, 51, 51, 0.18);
       transition: box-shadow 200ms linear;
     }
 
-    #content .item:hover {
+    #content a:hover {
       box-shadow: 5px 5px 20px 0px rgba(46, 51, 51, 0.07);
     }
 
-    #content .item img {
+    #content img.cover {
       object-fit: cover;
       height: 100%;
       width: 100%;
     }
 
-    #description,
-    #genres {
+    #content img.banner {
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      object-fit: cover;
+      filter: blur(4px);
+      transform: scale3d(1.1, 1.1, 1);
+    }
+
+    #well {
       margin: 16px;
+      border: 1px solid #ececec;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 20px;
+      line-height: 1.5;
+      background: white;
+    }
+
+    #well p {
+      margin: 0;
+      margin-bottom: 8px;
+      font-weight: bold;
+      font-size: 16px;
     }
   </style>
 </head>

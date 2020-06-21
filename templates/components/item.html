@@ -1,5 +1,3 @@
-<div class="item">
-  <a href="/anime/{{ .ID}}">
-    <img src="{{ .Cover}}" />
-  </a>
-</div>
+<a href="/anime/{{ .ID}}">
+  {{ template "cover.html" . }}
+</a>
