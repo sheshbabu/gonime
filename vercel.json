@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "name": "animenow",
+  "builds": [
+    {
+      "src": "*.go",
+      "use": "@now/go",
+      "config": {
+        "includeFiles": ["templates/**"]
+      }
+    }
+  ],
+  "routes": [{ "src": "/.*", "dest": "main.go" }]
+}

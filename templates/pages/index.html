@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+  {{ template "header.html" }}
+  <body>
+    <h1>AnimeNow</h1>
+    <div id="content">
+      {{range $val := .List}} {{ template "item.html" $val }} {{end}}
+    </div>
+  </body>
+</html>
