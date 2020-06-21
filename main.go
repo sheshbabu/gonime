@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"animenow/anilist"
+	"gonime/anilist"
 	"html/template"
 	"net/http"
 	"strings"

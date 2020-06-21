@@ -1,3 +1,3 @@
-module animenow
+module gonime
 
 go 1.14
